@@ -7,7 +7,8 @@ export class PokemonController {
     constructor(private readonly pokemonService: PokemonService) {}
 
     @Get()
-    getPokemons() {
+    async getPokemons() {
+        return this.pokemonService.getPokemons();
     }
 
     @Get(':id')
