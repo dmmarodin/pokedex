@@ -1,0 +1,7 @@
+div#pokemon-list {
+    //make it be a grid with 5 columns, reducing amount according to screen size
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    margin-top: 20px;
+    gap: 15px;
+}

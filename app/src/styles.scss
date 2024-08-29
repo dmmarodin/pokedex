@@ -3,7 +3,8 @@
 @import 'variables';
 
 body {
-    background-color: $background-dark;
+    background-color: $background-darker;
+    margin: 50px 20px;
 }
 
 * {

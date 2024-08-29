@@ -1,0 +1,33 @@
+@import "../../variables";
+
+.pokemon-card-skeleton {
+    background-color: $background-mid;
+    border-radius: 15px;
+    padding: 15px;
+
+    .skeleton-image {
+        height: 150px;
+        background-color: $background-light;
+        margin-bottom: 12px;
+    }
+
+    .skeleton-title, .skeleton-text {
+        height: 20px;
+        background-color: $background-light;
+        margin-bottom: 8px;
+    }
+
+    &>* {
+        background-image: linear-gradient(to right, #2d303d 0%, #282a36 50%, #2d303d 100%);
+        background-size: 300% 100%;
+        background-repeat: no-repeat;
+        background-position: 100% 0;
+        animation: shimmer 1.3s infinite ease-in-out;
+        border-radius: 15px;
+    }
+}
+
+@keyframes shimmer {
+    0% { background-position: 150% 0; }
+    100% { background-position: -150% 0; }
+}

@@ -1,0 +1,16 @@
+@import '../variables';
+
+main {
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 20px 31px;
+    background-color: $background-dark;
+    border-radius: 25px;
+}
+
+.header-logo {
+    width: 100%;
+    text-align: center;
+    padding: 50px 0;
+}

@@ -1,0 +1,14 @@
+<h1>Pokémon Catalog</h1>
+<div id="pokemon-list">
+    @if (isLoading()) {
+        @for (i of skeletonsCount; track i) {
+            <app-pokemon-card-skeleton />
+        }
+    } @else {
+        @for (pokemon of pokemons(); track pokemon.name) {
+            <app-pokemon-card></app-pokemon-card>
+        } @empty {
+            <p>No Pokémon found.</p>
+        }
+    }
+</div>

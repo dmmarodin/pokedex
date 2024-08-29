@@ -1,10 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { PokedexApiModule } from './pokedex-api.module';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(PokedexApiModule);
   app.setGlobalPrefix('api');
-  await app.listen(3000);
+  const configService = app.get(ConfigService);
+
+  app.enableCors({
+    origin: configService.get("FRONTEND_URL") || 'http://localhost:4200',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
+
+  await app.listen(configService.get('PORT') || 3000);
 }
 
 bootstrap();
