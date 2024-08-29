@@ -1,0 +1,21 @@
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: dev.Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./app:/app
+    environment:
+      - NODE_ENV=development
+  api:
+    image: node:20
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api:/api
+    working_dir: /api
+    command: npm start
+    environment:
+      - NODE_ENV=development
