@@ -1,18 +1,25 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param, Query } from "@nestjs/common";
 import { PokemonService } from "./pokemon.service";
 
 @Controller('pokemon')
 export class PokemonController {
 
-    constructor(private readonly pokemonService: PokemonService) {}
+    constructor(private readonly pokemonService: PokemonService) { }
 
     @Get()
-    async getPokemons() {
-        return this.pokemonService.getPokemons();
+    async getPokemons(
+        @Query('limit') limit: number = 10,
+        @Query('offset') offset: number = 0) {
+        return this.pokemonService.getPokemons(limit, offset);
+    }
+
+    @Get('search')
+    async searchPokemons(@Query('name') name: string) {
+        return this.pokemonService.searchPokemon(name);
     }
 
     @Get(':id')
-    getPokemonById() {
-        
+    getPokemonById(@Param('id') id: number) {
+        return this.pokemonService.getPokemonById(id);
     }
 }
