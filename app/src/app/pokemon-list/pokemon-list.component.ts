@@ -13,7 +13,7 @@ import { delay } from 'rxjs';
 })
 export class PokemonListComponent implements OnInit {
   pokemonService = inject(PokemonService);
-  skeletonsCount = Array(20).fill(0);
+  skeletonsCount = Array.from({ length: 20 }, (_, i) => i);
 
   pokemons = signal<any[]>([]);
   isLoading = signal<boolean>(true);
