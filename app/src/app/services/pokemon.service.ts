@@ -1,4 +1,7 @@
 import { Injectable } from "@angular/core";
 
 @Injectable()
-export class PokemonService {}
+export class PokemonService {
+
+
+}
