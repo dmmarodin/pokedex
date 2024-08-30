@@ -1,8 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { PokemonCardComponent } from "./pokemon-card/pokemon-card.component";
-import { PokemonCardSkeletonComponent } from "../pokemon-card-skeleton/pokemon-card-skeleton.component";
+import { PokemonCardSkeletonComponent } from "./pokemon-card-skeleton/pokemon-card-skeleton.component";
 import { delay } from 'rxjs';
+import { PokemonListItem } from '../models/pokemon.model';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -15,7 +16,7 @@ export class PokemonListComponent implements OnInit {
   pokemonService = inject(PokemonService);
   skeletonsCount = Array.from({ length: 20 }, (_, i) => i);
 
-  pokemons = signal<any[]>([]);
+  pokemons = signal<PokemonListItem[]>([]);
   isLoading = signal<boolean>(true);
 
   ngOnInit() {
@@ -30,6 +31,7 @@ export class PokemonListComponent implements OnInit {
           next:
             (pokemonData: any) => {
               this.pokemons.set(pokemonData.results);
+              console.log(pokemonData);
               this.isLoading.set(false);
             },
           error: (error: any) => {

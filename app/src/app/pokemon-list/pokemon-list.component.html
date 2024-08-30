@@ -6,7 +6,7 @@
         }
     } @else {
         @for (pokemon of pokemons(); track pokemon.name) {
-            <app-pokemon-card></app-pokemon-card>
+            <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
         } @empty {
             <p>No Pokémon found.</p>
         }

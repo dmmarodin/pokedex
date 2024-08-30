@@ -1,0 +1,29 @@
+@import "../../../variables";
+
+.pokemon-image {
+    background-color: $background-light;
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.pokemon-name {
+    font-weight: bold;
+}
+
+.pokemon-card:hover {
+    border-color: $red;
+}
+
+:host ::ng-deep .card.pokemon-card {
+    border: 5px solid $background-mid;
+    padding: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        border-color: $red !important;
+        filter: brightness(1.1);
+    }
+}

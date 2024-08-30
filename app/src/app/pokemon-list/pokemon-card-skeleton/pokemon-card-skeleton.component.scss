@@ -1,4 +1,4 @@
-@import "../../variables";
+@import "../../../variables";
 
 .pokemon-card-skeleton {
     background-color: $background-mid;
@@ -11,7 +11,8 @@
         margin-bottom: 12px;
     }
 
-    .skeleton-title, .skeleton-text {
+    .skeleton-title,
+    .skeleton-text {
         height: 20px;
         background-color: $background-light;
         margin-bottom: 8px;
@@ -23,11 +24,16 @@
         background-repeat: no-repeat;
         background-position: 100% 0;
         animation: shimmer 1.3s infinite ease-in-out;
-        border-radius: 15px;
+        border-radius: 10px;
     }
 }
 
 @keyframes shimmer {
-    0% { background-position: 150% 0; }
-    100% { background-position: -150% 0; }
+    0% {
+        background-position: 150% 0;
+    }
+
+    100% {
+        background-position: -150% 0;
+    }
 }

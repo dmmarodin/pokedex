@@ -1,9 +1,9 @@
 @import '../variables';
 
-main {
+section {
     width: 100%;
     max-width: 1400px;
-    margin: auto;
+    margin: 0 auto 20px auto;
     padding: 20px 31px;
     background-color: $background-dark;
     border-radius: 25px;

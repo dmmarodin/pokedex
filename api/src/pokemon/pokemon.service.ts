@@ -43,6 +43,7 @@ export class PokemonService {
                 pokemonList.results.map(async (pokemon: any) => {
                     const details = await this.getPokemonByName(pokemon.name);
                     return {
+                        id: details.id,
                         name: pokemon.name,
                         image: details.sprites.front_default,
                     };

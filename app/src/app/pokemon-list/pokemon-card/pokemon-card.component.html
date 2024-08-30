@@ -1,3 +1,6 @@
-<app-card>
-    <p>pokemon-card works!</p>
-</app-card>
+<a [routerLink]="['/pokemon', pokemon().id]">
+    <app-card [additionalClasses]="'pokemon-card'">
+        <img [src]="pokemon().image" class="pokemon-image" />
+        <span class="pokemon-name">{{pokemon().name | capitalize}}</span>
+    </app-card>
+</a>
