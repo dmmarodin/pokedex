@@ -1,3 +1,5 @@
+@import "../../variables";
+
 div#pokemon-list {
     //make it be a grid with 5 columns, reducing amount according to screen size
     display: grid;
@@ -9,4 +11,16 @@ div#pokemon-list {
 h1 {
     font-size: 2.1rem;
     font-weight: bold;
+}
+
+button.load-more {
+    background-color: $background-light;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: $background-lighter;
+    }
 }

@@ -12,3 +12,9 @@
         }
     }
 </div>
+
+@if (!isLoading()) {
+    <div class="py-8 flex justify-center">
+        <button class="load-more" (click)="loadMore()">Load More</button>
+    </div>
+}

@@ -7,8 +7,8 @@ import { PokemonDetails, PokemonListItem } from "../models/pokemon.model";
 export class PokemonService {
     http = inject(HttpClient);
 
-    public listPokemons(): Observable<PokemonListItem[]> {
-        return this.http.get<PokemonListItem[]>('http://localhost:3000/api/pokemon');
+    public listPokemons(limit: number, offset:number): Observable<PokemonListItem[]> {
+        return this.http.get<PokemonListItem[]>('http://localhost:3000/api/pokemon', { params: { limit, offset } });
     }
 
     public searchPokemons(name: string) {

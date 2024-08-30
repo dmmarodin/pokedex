@@ -14,6 +14,9 @@ import { PokemonListItem } from '../models/pokemon.model';
 })
 export class PokemonListComponent implements OnInit {
   pokemonService = inject(PokemonService);
+  limit = signal<number>(18);
+  offset = signal<number>(0);
+  
   skeletonsCount = Array.from({ length: 20 }, (_, i) => i);
 
   pokemons = signal<PokemonListItem[]>([]);
@@ -24,13 +27,13 @@ export class PokemonListComponent implements OnInit {
   }
 
   load() {
-    this.pokemonService.listPokemons()
+    this.pokemonService.listPokemons(this.limit(), this.offset())
       .pipe(delay(1000)) // Fake delay to showcase skeletons
       .subscribe(
         {
           next:
             (pokemonData: any) => {
-              this.pokemons.set(pokemonData.results);
+              this.pokemons.update((v: PokemonListItem[]) => ([...v, ...pokemonData.results]));
               console.log(pokemonData);
               this.isLoading.set(false);
             },
@@ -40,5 +43,10 @@ export class PokemonListComponent implements OnInit {
           }
         }
       );
+  }
+
+  loadMore() {
+    this.offset.set(this.offset() + this.limit());
+    this.load();
   }
 }
