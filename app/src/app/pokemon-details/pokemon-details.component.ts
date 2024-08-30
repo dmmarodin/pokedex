@@ -34,7 +34,6 @@ export class PokemonDetailsComponent implements OnInit {
           next:
             (pokemonData: PokemonDetails) => {
               this.pokemon.set(pokemonData);
-              console.log(pokemonData);
               this.isLoading.set(false);
             },
           error: (error: any) => {
