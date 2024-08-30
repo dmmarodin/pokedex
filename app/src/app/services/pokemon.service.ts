@@ -15,7 +15,7 @@ export class PokemonService {
         return this.http.get(`http://localhost:3000/api/pokemon/search?name=${name}`);
     }
 
-    public getPokemonDetails(id: number): Observable<PokemonDetails> {
-        return this.http.get<PokemonDetails>(`http://localhost:3000/api/pokemon/${id}`);
+    public getPokemonDetails(name: string): Observable<PokemonDetails> {
+        return this.http.get<PokemonDetails>(`http://localhost:3000/api/pokemon/${name}`);
     }
 }

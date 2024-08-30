@@ -19,8 +19,8 @@ export class PokemonController {
         return this.pokemonService.searchPokemon(name);
     }
 
-    @Get(':id')
-    getPokemonById(@Param('id', new ParseIntPipe()) id: number): Promise<Pokemon> {
-        return this.pokemonService.getPokemonById(id);
+    @Get(':name')
+    getPokemonById(@Param('name') name: string): Promise<Pokemon> {
+        return this.pokemonService.getPokemonByName(name);
     }
 }

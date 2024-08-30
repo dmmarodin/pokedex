@@ -4,5 +4,5 @@ import { PokemonDetailsComponent } from './pokemon-details/pokemon-details.compo
 
 export const routes: Routes = [
     { path: '', component: PokemonListComponent },
-    { path: 'pokemon/:id', component: PokemonDetailsComponent }
+    { path: 'pokemon/:name', component: PokemonDetailsComponent }
 ];

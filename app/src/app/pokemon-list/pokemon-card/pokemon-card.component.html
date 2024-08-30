@@ -1,4 +1,4 @@
-<a [routerLink]="['/pokemon', pokemon().id]">
+<a [routerLink]="['/pokemon', pokemon().name]">
     <app-card [additionalClasses]="'pokemon-card'">
         <img [src]="pokemon().image" class="pokemon-image" />
         <span class="pokemon-name">{{pokemon().name | capitalize}}</span>

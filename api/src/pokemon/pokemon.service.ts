@@ -47,10 +47,6 @@ export class PokemonService {
         });
     }
 
-    public async getPokemonById(id: number): Promise<Pokemon> {
-        return this.getPokemonByName(id.toString());
-    }
-
     public async getPokemonByName(name: string): Promise<Pokemon> {
         const cacheKey = `pokemon:${name}`;
 
@@ -119,9 +115,9 @@ export class PokemonService {
             // log to showcase if the data is being gathered correctly from redis
             this.logger.log(`Fetching new data for ${key}`);
             return fetchedData;
-        } catch (error) {
-            this.logger.error('Error fetching data from cache or API:', error);
-            throw new Error('Error fetching data');
+        } catch (e) {
+            this.logger.error('Error fetching data from cache or API:', e);
+            throw e;
         }
     }
 }

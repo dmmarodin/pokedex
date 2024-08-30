@@ -20,15 +20,15 @@ export class PokemonDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
-      const id = params.get('id');
-      if (id) {
-        this.load(+id);
+      const name = params.get('name');
+      if (name) {
+        this.load(name);
       }
     });
   }
 
-  load(id: number) {
-    this.pokemonService.getPokemonDetails(id)
+  load(name: string) {
+    this.pokemonService.getPokemonDetails(name)
       .subscribe(
         {
           next:
