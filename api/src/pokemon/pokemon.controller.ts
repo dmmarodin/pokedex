@@ -8,7 +8,7 @@ export class PokemonController {
 
     @Get()
     async getPokemons(
-        @Query('limit') limit: number = 10,
+        @Query('limit') limit: number = 20,
         @Query('offset') offset: number = 0) {
         return this.pokemonService.getPokemons(limit, offset);
     }
