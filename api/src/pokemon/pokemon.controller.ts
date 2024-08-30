@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from "@nestjs/common";
+import { Controller, Get, Param, ParseIntPipe, Query } from "@nestjs/common";
 import { PokemonService } from "./pokemon.service";
 
 @Controller('pokemon')
@@ -8,8 +8,8 @@ export class PokemonController {
 
     @Get()
     async getPokemons(
-        @Query('limit') limit: number = 20,
-        @Query('offset') offset: number = 0) {
+        @Query('limit', new ParseIntPipe()) limit: number = 20,
+        @Query('offset', new ParseIntPipe()) offset: number = 0) {
         return this.pokemonService.getPokemons(limit, offset);
     }
 
@@ -19,7 +19,7 @@ export class PokemonController {
     }
 
     @Get(':id')
-    getPokemonById(@Param('id') id: number) {
+    getPokemonById(@Param('id', new ParseIntPipe()) id: number) {
         return this.pokemonService.getPokemonById(id);
     }
 }
