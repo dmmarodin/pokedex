@@ -30,7 +30,7 @@
     }
 </div>
 
-@if (!isLoading()) {
+@if (!isLoading() && !isSearching()) {
 <div class="py-8 flex justify-center">
     <button class="load-more" (click)="loadMore()">Load More</button>
 </div>
