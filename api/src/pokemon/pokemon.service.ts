@@ -5,6 +5,7 @@ import { AxiosError } from "axios";
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
 import { Cache } from "cache-manager";
 import { Pokemon, PokemonListItem } from "./interfaces/pokemon.types";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class PokemonService {
@@ -12,6 +13,7 @@ export class PokemonService {
 
     constructor(
         @Inject(CACHE_MANAGER) private cacheManager: Cache,
+        private readonly configService: ConfigService,
         private readonly httpService: HttpService
     ) { }
 
@@ -107,7 +109,7 @@ export class PokemonService {
             return cachedData;
         }
         const fetchedData = await fetchFn();
-        await this.cacheManager.set(key, fetchedData, 3600000);
+        await this.cacheManager.set(key, fetchedData, this.configService.get<number>('CACHE_TTL'));
 
         // log to showcase if the data is being gathered correctly from redis
         console.log(`Fetching new data for ${key}`);
