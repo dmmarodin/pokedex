@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, ViewChild, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, signal, ViewChild, viewChild } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { PokemonCardComponent } from "./pokemon-card/pokemon-card.component";
 import { PokemonCardSkeletonComponent } from "./pokemon-card-skeleton/pokemon-card-skeleton.component";
@@ -18,6 +18,7 @@ export class PokemonListComponent implements OnInit {
   limit = signal<number>(18);
   offset = signal<number>(0);
   @ViewChild('searchForm') searchForm!: NgForm;
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
   skeletonsCount = Array.from({ length: 20 }, (_, i) => i);
 
@@ -37,7 +38,6 @@ export class PokemonListComponent implements OnInit {
           next:
             (pokemonData: any) => {
               this.pokemons.update((v: PokemonListItem[]) => ([...v, ...pokemonData.results]));
-              console.log(pokemonData);
               this.isLoading.set(false);
             },
           error: (error: any) => {
@@ -55,7 +55,6 @@ export class PokemonListComponent implements OnInit {
 
   search(name: string) {
     if(this.isLoading()) return;
-    console.log("searching");
 
     this.isSearching.set(true);
     this.isLoading.set(true);
@@ -87,6 +86,7 @@ export class PokemonListComponent implements OnInit {
 
   onClear() {
     this.searchForm.reset();
+    this.searchInput.nativeElement.value = '';
     this.resetList();
   }
 
