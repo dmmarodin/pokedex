@@ -4,6 +4,7 @@ import { firstValueFrom } from "rxjs";
 import { AxiosError } from "axios";
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
 import { Cache } from "cache-manager";
+import { Pokemon, PokemonListItem } from "./interfaces/pokemon.types";
 
 @Injectable()
 export class PokemonService {
@@ -14,22 +15,8 @@ export class PokemonService {
         private readonly httpService: HttpService
     ) { }
 
-    private async getCachedOrFetch<T>(key: string, fetchFn: () => Promise<T>): Promise<T> {
-        const cachedData = await this.cacheManager.get<T>(key);
-        if (cachedData) {
-            // log to showcase if the data is being gathered correctly from redis
-            console.log(`Using cached data for ${key}`);
-            return cachedData;
-        }
-        const fetchedData = await fetchFn();
-        await this.cacheManager.set(key, fetchedData, 3600000);
 
-        // log to showcase if the data is being gathered correctly from redis
-        console.log(`Fetching new data for ${key}`);
-        return fetchedData;
-    }
-
-    public async getPokemons(limit: number = 20, offset: number = 0) {
+    public async getPokemons(limit: number = 20, offset: number = 0): Promise<PokemonListItem[]> {
         const cacheKey = `pokemonsList:${limit}:${offset}`;
 
         return this.getCachedOrFetch(cacheKey, async () => {
@@ -55,11 +42,11 @@ export class PokemonService {
         });
     }
 
-    public async getPokemonById(id: number) {
+    public async getPokemonById(id: number): Promise<Pokemon> {
         return this.getPokemonByName(id.toString());
     }
 
-    public async getPokemonByName(name: string) {
+    public async getPokemonByName(name: string): Promise<Pokemon> {
         const cacheKey = `pokemon:${name}`;
 
         return this.getCachedOrFetch(cacheKey, async () => {
@@ -94,7 +81,7 @@ export class PokemonService {
         });
     }
 
-    public async searchPokemon(name: string) {
+    public async searchPokemon(name: string): Promise<{ results: PokemonListItem[] }> {
         try {
         const result = await this.getPokemonByName(name.toLowerCase());
         return { results: [{
@@ -105,10 +92,25 @@ export class PokemonService {
         } catch (e: unknown) {
             const error = e as AxiosError;
             if (error.response?.status === 404) {
-                return [];
+                return {results: []};
             } else {
                 throw new Error('Error searching for pokemon');
             }
         }
+    }
+
+    private async getCachedOrFetch<T>(key: string, fetchFn: () => Promise<T>): Promise<T> {
+        const cachedData = await this.cacheManager.get<T>(key);
+        if (cachedData) {
+            // log to showcase if the data is being gathered correctly from redis
+            console.log(`Using cached data for ${key}`);
+            return cachedData;
+        }
+        const fetchedData = await fetchFn();
+        await this.cacheManager.set(key, fetchedData, 3600000);
+
+        // log to showcase if the data is being gathered correctly from redis
+        console.log(`Fetching new data for ${key}`);
+        return fetchedData;
     }
 }
