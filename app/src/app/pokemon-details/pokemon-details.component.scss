@@ -1,0 +1,48 @@
+@import "../../variables";
+
+$imgSize: 135px;
+
+h1 {
+    font-size: 2.4rem;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.type {
+    font-style: italic;
+    font-size: 1.2rem;
+}
+
+.pokemon-table-wrapper {
+    background-color: $background-light;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+// this wrapper helps to reduce impact of image popup while loading
+.img-wrapper {
+    background-color: $background-light;
+    border-radius: 10px;
+    width: $imgSize;
+    height: $imgSize;
+    display: inline-block;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+table {
+    width: 100%;
+
+    td {
+        padding: 10px 15px;
+        border-bottom: 2px solid $background-lighter;
+    }
+}

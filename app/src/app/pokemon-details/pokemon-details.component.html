@@ -1,1 +1,83 @@
-<p>pokemon-details works!</p>
+@if (isLoading()) {
+
+} @else {
+    <div class="flex w-full justify-between">
+        <div>
+            <div class="mb-8">
+                <h1>{{ pokemon()!.name || "" | capitalize }}</h1>
+                <span class="type">{{pokemon()!.types.join(' & ') | capitalize}}</span>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div>
+                <span class="font-bold">Normal</span>
+                <div class="flex gap-4">
+                    <div class="img-wrapper">
+                        <img [src]="pokemon()!.images.front" class="inline" />
+                    </div>
+                    <div class="img-wrapper">
+                        <img [src]="pokemon()!.images.back" class="inline" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <span class="font-bold">Shiny</span>
+                <div class="flex gap-4">
+                    <div class="img-wrapper">
+                        <img [src]="pokemon()!.images.shinyFront" />
+                    </div>
+                    <div class="img-wrapper">
+                        <img [src]="pokemon()!.images.shinyBack" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex gap-4">
+        <div class="inline-block">
+            <h2>Info</h2>
+            <div class="pokemon-table-wrapper">
+                <table>
+                    <tr>
+                        <td>XP</td>
+                        <td>{{ pokemon()!.base_experience }}</td>
+                    </tr>
+                    <tr>
+                        <td>Height</td>
+                        <td>{{ pokemon()!.height }}</td>
+                    </tr>
+                    <tr>
+                        <td>Weight</td>
+                        <td>{{ pokemon()!.weight }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="inline-block">
+            <h2>Stats</h2>
+            <div class="pokemon-table-wrapper">
+                <table>
+                    @for(stat of pokemon()!.stats; track stat.name) {
+                        <tr>
+                            <td>{{stat.name | capitalize}}</td>
+                            <td>{{stat.value}}</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="inline-block">
+            <h2>Abilities</h2>
+            <div class="pokemon-table-wrapper">
+                <table>
+                    @for(ability of pokemon()!.abilities; track ability.name) {
+                        <tr>
+                            <td>{{ability.name | capitalize}}</td>
+                            <!-- <td>{{stat.value}}</td> -->
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+}

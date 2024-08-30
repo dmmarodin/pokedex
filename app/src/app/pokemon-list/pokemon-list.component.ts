@@ -25,7 +25,7 @@ export class PokemonListComponent implements OnInit {
 
   load() {
     this.pokemonService.listPokemons()
-      .pipe(delay(2000)) // Fake delay to showcase skeletons
+      .pipe(delay(1000)) // Fake delay to showcase skeletons
       .subscribe(
         {
           next:

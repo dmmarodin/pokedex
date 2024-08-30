@@ -45,7 +45,7 @@ export class PokemonService {
                     return {
                         id: details.id,
                         name: pokemon.name,
-                        image: details.sprites.front_default,
+                        image: details.images.front,
                     };
                 })
             );
@@ -66,7 +66,31 @@ export class PokemonService {
             const url = `${this.baseUrl}/pokemon/${name}`;
 
             const response = await firstValueFrom(this.httpService.get(url));
-            return response.data;
+            const responseData = response.data;
+            console.log(responseData);
+
+            const result = {
+                id: responseData.id,
+                name: responseData.name,
+                base_experience: responseData.base_experience,
+                height: responseData.height,
+                weight: responseData.weight,
+                images: {
+                    front: responseData.sprites.front_default,
+                    back: responseData.sprites.back_default,
+                    shinyFront: responseData.sprites.front_shiny,
+                    shinyBack: responseData.sprites.back_shiny,
+                },
+                types: responseData.types.map((type: any) => type.type.name),
+                abilities: responseData.abilities.map((ability: any) => ({name: ability.ability.name})),
+                stats: responseData.stats.map((stat: any) => ({
+                    name: stat.stat.name,
+                    value: stat.base_stat,
+                })),
+                moves: responseData.moves.map((move: any) => move.move.name),
+            };
+
+            return result;
         });
     }
 
