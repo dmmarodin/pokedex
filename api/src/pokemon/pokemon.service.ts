@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable, Logger } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
 import { firstValueFrom } from "rxjs";
 import { AxiosError } from "axios";
@@ -9,6 +9,7 @@ import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class PokemonService {
+    private logger = new Logger('PokemonService');
     private baseUrl: string;
 
     constructor(
@@ -58,7 +59,6 @@ export class PokemonService {
 
             const response = await firstValueFrom(this.httpService.get(url));
             const responseData = response.data;
-            console.log(responseData);
 
             const result = {
                 id: responseData.id,
@@ -110,17 +110,17 @@ export class PokemonService {
             const cachedData = await this.cacheManager.get<T>(key);
             if (cachedData) {
                 // log to showcase if the data is being gathered correctly from redis
-                console.log(`Using cached data for ${key}`);
+                this.logger.log(`Using cached data for ${key}`);
                 return cachedData;
             }
             const fetchedData = await fetchFn();
             await this.cacheManager.set(key, fetchedData, this.configService.get<number>('CACHE_TTL'));
 
             // log to showcase if the data is being gathered correctly from redis
-            console.log(`Fetching new data for ${key}`);
+            this.logger.log(`Fetching new data for ${key}`);
             return fetchedData;
         } catch (error) {
-            console.error('Error fetching data from cache or API:', error);
+            this.logger.error('Error fetching data from cache or API:', error);
             throw new Error('Error fetching data');
         }
     }
