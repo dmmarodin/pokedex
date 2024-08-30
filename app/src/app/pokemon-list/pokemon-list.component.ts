@@ -57,6 +57,9 @@ export class PokemonListComponent implements OnInit {
     if(this.isLoading()) return;
     console.log("searching");
 
+    this.isSearching.set(true);
+    this.isLoading.set(true);
+
     if(name.trim() === '') {
       this.resetList();
       return;
@@ -65,13 +68,11 @@ export class PokemonListComponent implements OnInit {
     this.pokemonService.searchPokemons(name).subscribe({
       next: (pokemonData: any) => {
         this.pokemons.set(pokemonData.results || []);
-        this.isSearching.set(true);
         this.isLoading.set(false);
       },
       error: (error: any) => {
         console.error('Error fetching searched Pokemon:', error);
         this.pokemons.set([]);
-        this.isSearching.set(true);
         this.isLoading.set(false);
       }
 

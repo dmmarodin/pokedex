@@ -5,7 +5,11 @@
         <input type="text" class="mr-2" placeholder="pokemon name..." (input)="onSearchInput(searchInput.value)"
             #searchInput>
         <button type="button" (click)="search(searchInput.value)" class="mr-2" title="Search Pokémon">
-            <i class="fas fa-search"></i>
+            @if (isLoading() && isSearching()) {
+                <i class="fas fa-spinner fa-spin"></i>
+            } @else {
+                <i class="fas fa-search"></i>
+            }
         </button>
         <button type="button" (click)="onClear()" [disabled]="!isSearching()" title="Clear search">
             <i class="fas fa-trash"></i>
