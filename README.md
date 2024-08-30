@@ -4,6 +4,8 @@ This project is a web application that allows users to browse and view details o
 
 Credits for Pokémon data goes to [PokéAPI](https://pokeapi.co/).
 
+![PokéFinder main page](./static/screenshot.png)
+
 ## Features
 
 * **List Pokémon:** View a list of Pokémon with pagination support.
