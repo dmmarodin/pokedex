@@ -16,6 +16,7 @@
     "start": "nest start --watch"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "@nestjs/axios": "^3.0.3",
     "@nestjs/cache-manager": "^2.2.2",
     "@nestjs/common": "^10.3.9",
