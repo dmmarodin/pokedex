@@ -24,13 +24,15 @@ import type { RedisClientOptions } from 'redis';
               host: configService.get<string>('REDIS_HOST') || 'localhost',
               port: configService.get<number>('REDIS_PORT') || 6379,
             },
-            ttl: configService.get<number>('CACHE_TTL') || 3600000,
+            ttl: configService.get<number>('CACHE_TTL') || 3600,
           });
           return {
             store: store as unknown as RedisClientOptions['store'],
           };
         } catch (e) {
           logger.error('Error connecting to Redis:', e);
+          logger.warn('Using in-memory cache instead');
+          return {};
         }
       },
     }),
