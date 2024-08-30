@@ -17,3 +17,56 @@ body {
     font-optical-sizing: auto;
     box-sizing: border-box;
 }
+
+input {
+    background-color: $background-light;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 3px solid $background-light;
+    outline: 0;
+
+    transition: color, background-color, border-color, filter 0.2s;
+
+    &:focus {
+        border-color: $background-lighter;
+    }
+
+    &::placeholder {
+        color: $placeholder;
+        font-style: italic;
+    }
+}
+
+button {
+    background-color: $background-light;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 3px solid $background-light;
+
+    transition: color, background-color, border-color, filter 0.2s;
+
+    &>i {
+        color: $white;
+    }
+
+    &:disabled {
+        color: $placeholder;
+        filter: brightness(0.85);
+        cursor: not-allowed;
+
+        &>i {
+            color: $placeholder;
+        }
+    }
+
+    &:not(:disabled) {
+        &:hover, &:focus {
+            filter: brightness(1.1);
+        }
+
+        &:active {
+            border-color: $background-lighter;
+            background-color: $background-lighter;
+        }
+    }
+}

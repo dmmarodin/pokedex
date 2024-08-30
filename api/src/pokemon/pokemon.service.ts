@@ -95,12 +95,20 @@ export class PokemonService {
     }
 
     public async searchPokemon(name: string) {
-        return this.getPokemonByName(name.toLowerCase()).catch((e: AxiosError) => {
-            if (e.response?.status === 404) {
+        try {
+        const result = await this.getPokemonByName(name.toLowerCase());
+        return { results: [{
+            id: result.id,
+            name: result.name,
+            image: result.images.front,
+        }] };
+        } catch (e: unknown) {
+            const error = e as AxiosError;
+            if (error.response?.status === 404) {
                 return [];
             } else {
                 throw new Error('Error searching for pokemon');
             }
-        });
+        }
     }
 }

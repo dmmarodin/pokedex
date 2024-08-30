@@ -1,20 +1,33 @@
-<h1>Pokémon Catalog</h1>
+<div class="flex justify-between">
+    <h1>Pokémon Catalog</h1>
+    <form (submit)="search(searchInput.value)" #searchForm="ngForm">
+        <label class="font-bold mr-2">Search</label>
+        <input type="text" class="mr-2" placeholder="pokemon name..." (input)="onSearchInput(searchInput.value)"
+            #searchInput>
+        <button type="button" (click)="search(searchInput.value)" class="mr-2" title="Search Pokémon">
+            <i class="fas fa-search"></i>
+        </button>
+        <button type="button" (click)="onClear()" [disabled]="!isSearching()" title="Clear search">
+            <i class="fas fa-trash"></i>
+        </button>
+    </form>
+</div>
 <div id="pokemon-list">
     @if (isLoading()) {
-        @for (i of skeletonsCount; track i) {
-            <app-pokemon-card-skeleton />
-        }
+    @for (i of skeletonsCount; track i) {
+    <app-pokemon-card-skeleton />
+    }
     } @else {
-        @for (pokemon of pokemons(); track pokemon.name) {
-            <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
-        } @empty {
-            <p>No Pokémon found.</p>
-        }
+    @for (pokemon of pokemons(); track pokemon.name) {
+    <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+    } @empty {
+    <p>No Pokémon found.</p>
+    }
     }
 </div>
 
 @if (!isLoading()) {
-    <div class="py-8 flex justify-center">
-        <button class="load-more" (click)="loadMore()">Load More</button>
-    </div>
+<div class="py-8 flex justify-center">
+    <button class="load-more" (click)="loadMore()">Load More</button>
+</div>
 }

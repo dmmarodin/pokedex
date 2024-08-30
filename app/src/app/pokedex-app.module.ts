@@ -16,7 +16,7 @@ import { PokemonListComponent } from "./pokemon-list/pokemon-list.component";
     RouterModule.forRoot(routes),
     CardComponent,
     LogoComponent,
-    PokemonListComponent
+    PokemonListComponent,
   ],
   providers: [
     PokemonService,
