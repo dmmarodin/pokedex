@@ -102,22 +102,17 @@ export class PokemonService {
     }
 
     private async getCachedOrFetch<T>(key: string, fetchFn: () => Promise<T>): Promise<T> {
-        try {
-            const cachedData = await this.cacheManager.get<T>(key);
-            if (cachedData) {
-                // log to showcase if the data is being gathered correctly from redis
-                this.logger.log(`Using cached data for ${key}`);
-                return cachedData;
-            }
-            const fetchedData = await fetchFn();
-            await this.cacheManager.set(key, fetchedData, this.configService.get<number>('CACHE_TTL'));
-
+        const cachedData = await this.cacheManager.get<T>(key);
+        if (cachedData) {
             // log to showcase if the data is being gathered correctly from redis
-            this.logger.log(`Fetching new data for ${key}`);
-            return fetchedData;
-        } catch (e) {
-            this.logger.error('Error fetching data from cache or API:', e);
-            throw e;
+            this.logger.log(`Using cached data for ${key}`);
+            return cachedData;
         }
+        const fetchedData = await fetchFn();
+        await this.cacheManager.set(key, fetchedData, this.configService.get<number>('CACHE_TTL'));
+
+        // log to showcase if the data is being gathered correctly from redis
+        this.logger.log(`Fetching new data for ${key}`);
+        return fetchedData;
     }
 }
